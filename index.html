@@ -41,6 +41,9 @@
       --slot-bottom: 14px;
 
       --bottom-nav-h: 64px;
+
+      --scene-offset-x: -0.5cm;
+      --scene-offset-y: 1.1cm;
     }
 
     *{margin:0;padding:0;box-sizing:border-box}
@@ -57,7 +60,7 @@
       padding:12px var(--frame-gutter-x) 80px;
       font-family:Inter, "Segoe UI", Roboto, sans-serif
     }
-    .amount,.value,.rate{font-family:Inter, "Segoe UI", Roboto, sans-serif!important; font-feature-settings:"tnum" 1,"lnum" 1;}
+    .amount,.value,.rate{font-family:Inter, "Segoe UI", Roboto, sans-serif!important}
     button{cursor:pointer;border:none;background:transparent;font:inherit;color:inherit}
 
     .top-stack{
@@ -94,7 +97,6 @@
 
     .sub-toggle{display:flex;gap:6px;margin:8px 0 0 0;border-bottom:none !important;box-shadow:none !important;}
     .sub-toggle .toggle-btn{padding:4px 8px;font-size:11px;color:#A1A6B0;border-radius:6px;background:transparent;}
-    .sub-toggle .toggle-btn::after{ display:none !important; }
     .sub-toggle .toggle-btn.active{background:#323742;color:#FFF}
 
     .balance-panel{margin:12px 0}
@@ -123,7 +125,6 @@
     }
     .sub-nav-2 button{position:relative;padding:0 6px 8px;font-size:14px;font-weight:700;letter-spacing:.1px;color:var(--text-secondary);line-height:1}
     .sub-nav-2 button.active{color:#fff}
-    .sub-nav-2 button.active::after{ display:none !important; }
 
     .feed{
       overflow-y:auto; overscroll-behavior-y: contain;
@@ -185,11 +186,25 @@
       background:transparent; border-radius:4px;
     }
     .photo-slot--bottom{ width:var(--slot-bottom); height:var(--slot-bottom); border-radius:3px; }
-    .photo-slot input[type="file"]{ position:absolute; inset:0; opacity:0; cursor:pointer; }
-    .photo-slot img{
-      width:88%; height:88%; margin:6%; object-fit:cover; display:block; border:none; outline:none; background:transparent; image-rendering:auto;
+    .photo-slot input[type="file"]{
+      position:absolute; inset:0; opacity:0; cursor:pointer;
     }
-    .photo-slot--bottom img{ width:90%; height:90%; margin:5%; object-fit:cover; display:block; }
+    .photo-slot img{
+      width:88%;
+      height:88%;
+      margin:6%;
+      object-fit:cover;
+      display:block;
+      border:none; outline:none; background:transparent;
+      image-rendering:auto;
+    }
+    .photo-slot--bottom img{
+      width:90%;
+      height:90%;
+      margin:5%;
+      object-fit:cover;
+      display:block;
+    }
     .photo-empty::after{ content:''; position:absolute; inset:0; background:transparent; }
 
     .pnl-modal-backdrop{
@@ -199,7 +214,6 @@
     }
     .pnl-modal-backdrop.open{ display:flex; }
     .pnl-modal{ position:relative; max-width:520px; width:100%; outline:0; border:0; background:transparent; }
-
     .pnl-close{ display:none !important; }
 
     .pnl-scene{
@@ -213,11 +227,12 @@
       flex-direction:column;
       align-items:center;
       box-shadow:0 8px 20px rgba(0,0,0,.35) inset;
+      transform: translate(var(--scene-offset-x), var(--scene-offset-y));
     }
 
     .pnl-card {
       font-family: Inter, "Segoe UI", system-ui, -apple-system, sans-serif !important;
-      font-feature-settings:"tnum" 1,"lnum" 1;
+      font-feature-settings:"tnum"1,"lnum"1;
       letter-spacing:.15px;
       color:#fff;
       background:url('https://iili.io/KBlgIse.th.png') no-repeat center/cover;
@@ -265,11 +280,7 @@
       display:flex; flex-direction:column; align-items:flex-start;
       font-size:13px;
     }
-    .pnl-underbar .selector {
-      margin:6px 0 10px;
-      display:flex; justify-content:flex-start; gap:20px; font-size:13px;
-      transform:translateX(calc(-2cm + 1.5cm));
-    }
+    .pnl-underbar .selector { margin:6px 0 10px; display:flex; justify-content:flex-start; gap:20px; font-size:13px; transform:translateX(calc(-2cm + 1.5cm)); }
     .pnl-underbar .selector label { display:flex; align-items:center; gap:5px; cursor:pointer; }
     .pnl-underbar .selector input[type="radio"] { accent-color:white; }
     .pnl-underbar .bottom-bar { display:flex; justify-content:center; gap:10px; margin-top:8px; transform:translateX(-1.2cm); align-self:center; }
@@ -294,7 +305,6 @@
 </head>
 <body>
   <div class="app">
-    <!-- TOP (fixed) -->
     <div class="top-stack" id="topStack">
       <header class="top-toggle" aria-label="Exchange or Wallet">
         <span class="seg-thumb" aria-hidden="true"></span>
@@ -315,11 +325,9 @@
       </div>
     </div>
 
-    <!-- Balances -->
     <section class="balance-panel" aria-label="Balances">
       <div class="balance-header">
         <span>Margin Balance <i id="eyeToggle" class="fas fa-eye" aria-hidden="true"></i></span>
-
         <span class="icon-group" aria-label="Actions">
           <label class="photo-slot photo-empty" data-slot="top-reward">
             <input type="file" accept=".jpg,.jpeg,image/jpeg" capture="environment">
@@ -349,7 +357,7 @@
 
       <div class="small-balances">
         <div class="small-item">
-          <div class="label">Wallet Balance (USD)</div>
+          <div class class="label">Wallet Balance (USD)</div>
           <div class="value" id="walletValue">Loading…</div>
         </div>
         <div class="small-item">
@@ -365,7 +373,6 @@
       <button class="btn">Transfer</button>
     </section>
 
-    <!-- Positions -->
     <section class="positions" aria-label="Positions">
       <nav class="sub-nav-2" id="stickyBar">
         <button class="active">Positions</button>
@@ -382,7 +389,6 @@
       </div>
     </section>
 
-    <!-- Bottom nav -->
     <nav class="bottom-nav" aria-label="Bottom navigation" id="bottomNav">
       <button>
         <label class="photo-slot photo-slot--bottom photo-empty" data-slot="nav-home">
@@ -417,7 +423,7 @@
     </nav>
   </div>
 
-  <!-- SHARE MODAL -->
+  <!-- ===================== SHARE MODAL ===================== -->
   <div class="pnl-modal-backdrop" id="pnlBackdrop" aria-hidden="true">
     <div class="pnl-modal" role="dialog" aria-modal="true" aria-labelledby="pnlTitle">
       <div class="pnl-scene">
@@ -487,12 +493,13 @@
             <div class="action" title="More"><img src="https://img.icons8.com/ios-glyphs/60/more.png" alt="More"><span>More</span></div>
           </div>
         </div>
-      </div>
+      </div><!-- /pnl-scene -->
     </div>
   </div>
+  <!-- =================== / SHARE MODAL =================== -->
 
   <script>
-    /* Segmented control */
+    /* ===== Segmented control ===== */
     (function(){
       const wrap = document.querySelector('.app .top-toggle');
       const btns  = [...wrap.querySelectorAll('.toggle-btn')];
@@ -501,7 +508,7 @@
       setActive(0); btns.forEach((b,i)=> b.addEventListener('click',()=>setActive(i)));
     })();
 
-    /* Layout sizing */
+    /* ===== Layout sizing ===== */
     function sizeFeed(){
       const feed = document.getElementById('feed');
       const stickyBar = document.getElementById('stickyBar');
@@ -519,7 +526,7 @@
     window.addEventListener('resize', sizeFeed);
     document.addEventListener('DOMContentLoaded', sizeFeed);
 
-    /* Top panel utils */
+    /* ===== Top panel utils ===== */
     const fmtMoney = (n) =>
       "$" + Number(n).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     const fmtPct = (n) => (n >= 0 ? "+" : "") + n.toFixed(2) + "%";
@@ -544,7 +551,7 @@
     }
     eye.addEventListener("click", ()=>{ showTop = !showTop; eye.classList.toggle("fa-eye-slash", !showTop); eye.classList.toggle("fa-eye", showTop); refreshTop(); });
 
-    /* Helpers */
+    /* ===== Helper fns ===== */
     const numberWithCommas = (x) => String(x).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     const toFixedSafe = (n, dp) => { const num = Number(n); if (!Number.isFinite(num)) return (0).toFixed(dp); const m = Math.pow(10, dp); return (Math.round(num * m) / m).toFixed(dp); };
     const dpFromTick = (tickStr) => { const idx = (tickStr || '').indexOf('.'); if (idx === -1) return 0; return tickStr.length - idx - 1; };
@@ -554,11 +561,18 @@
     function shuffle(arr){ for (let i = arr.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [arr[i], arr[j]] = [arr[j], arr[i]]; } return arr; }
     const randInt = (min, max) => Math.floor(Math.random()*(max-min+1))+min;
 
-    /* NEW: signed formatting helpers */
-    const formatProfit = (_sym, x) => { const s = toFixedSafe(x, 2); const [i,d]=s.split('.'); return joinIntDec(i,d); };
-    const withPlus = (n, s) => (n>=0?'+':'') + s;
+    function formatProfit(_sym, x) {
+      const s = toFixedSafe(x, 2);
+      const [i, d] = s.split('.');
+      return joinIntDec(i, d);
+    }
+    function formatSignedProfit(sym, x){
+      const abs = Math.abs(Number(x) || 0);
+      return (x >= 0 ? '+' : '-') + formatProfit(sym, abs);
+    }
+    function formatTwoDP(x) { const s = toFixedSafe(x, 2); const [i, d] = s.split('.'); return joinIntDec(i, d); }
 
-    /* photo-slot logic */
+    /* ====== photo-slot logic ====== */
     const SLOT_KEY_PREFIX = 'photo_slot_';
     const DEFAULT_URLS = {
       'top-reward':   'https://iili.io/KngDpJn.th.jpg',
@@ -601,7 +615,7 @@
       });
     }
 
-    /* Exchange / calc */
+    /* ===== Exchange / calculations / WS / panels ===== */
     const round2 = (x) => Math.round((Number(x)||0) * 100) / 100;
 
     const marketMeta = Object.create(null);
@@ -628,7 +642,6 @@
     }
     const getMeta = (sym) => marketMeta[sym] || { tickSize: '0.01', stepSize: '0.001', minQty: 0, priceDp: 2 };
     function formatPrice(sym, x) { const m = getMeta(sym); const q = quantizeToTick(x, m.tickSize); const s = toFixedSafe(q, m.priceDp); const [i, d] = s.split('.'); return joinIntDec(i, d); }
-    function formatTwoDP(x) { const s = toFixedSafe(x, 2); const [i, d] = s.split('.'); return joinIntDec(i, d); }
 
     const primeSymbols = ['BTCUSDT','ETHUSDT','BNBUSDT','SOLUSDT','XRPUSDT','DOGEUSDT','TONUSDT','ADAUSDT','AVAXUSDT','TRXUSDT','LINKUSDT','DOTUSDT','NEARUSDT','OPUSDT','ARBUSDT','APTUSDT','INJUSDT','RNDRUSDT','SEIUSDT','TIAUSDT','ONDOUSDT'];
     const seedSymbols = ['BTCUSDT','ETHUSDT','BNBUSDT','ADAUSDT','SOLUSDT','XRPUSDT','DOTUSDT','LTCUSDT','LINKUSDT','DOGEUSDT','AAVEUSDT','SUSHIUSDT','SHIBUSDT','COMPUSDT','ETCUSDT','ZECUSDT','XMRUSDT','LRCUSDT','QNTUSDT','CRVUSDT','UNIUSDT','BCHUSDT','XLMUSDT','ATOMUSDT','MATICUSDT','AVAXUSDT','TRXUSDT','EOSUSDT','NEARUSDT','FILUSDT','OPUSDT','ARBUSDT','APTUSDT','SUIUSDT','INJUSDT','RNDRUSDT','GALAUSDT','THETAUSDT','SANDUSDT','MANAUSDT','AXSUSDT','CFXUSDT','ICPUSDT','LDOUSDT','PEPEUSDT','FLOKIUSDT','WIFUSDT','ARKUSDT','IOTAUSDT','KASUSDT','PYTHUSDT','STRKUSDT','JUPUSDT','APEUSDT','BLURUSDT','SEIUSDT','TIAUSDT','TONUSDT','ONDOUSDT'];
@@ -663,7 +676,7 @@
     const feedDiv = document.getElementById('feed');
     function meterBars(){ const totalBars = 4; const greenBars = Math.floor(Math.random() * totalBars) + 1; let html=''; for(let j=0;j<totalBars;j++) html += `<span class="${j<greenBars?'green':''}"></span>`; return html; }
 
-    function createPanel({ sym, leverage, entry, mark, usedMargin, effMargin, mmr, qty, side }) {
+    function createPanel({ sym, leverage, entry, mark, usedMargin, effMargin, mmr, qty, side, marginMode }) {
       const pnl = side === 'LONG' ? upnlLong(mark, entry, qty) : upnlShort(mark, entry, qty);
       const roi = roiPct(pnl, usedMargin);
       const maint = maintenance(mmr, mark, qty);
@@ -679,7 +692,7 @@
           ${sideIcon}
           <span class="symbol">${sym}</span>
           <span class="tag">PERP</span>
-          <span class="tag">Cross ${leverage}×</span>
+          <span class="tag">${marginMode} ${leverage}×</span>
           <span class="exclamations">${meterBars()}</span>
           <i class="fas fa-share-nodes share" title="Share PNL"></i>
         </div>
@@ -687,7 +700,7 @@
           <div class="column">
             <div class="stat">
               <div class="label">PNL (USDT)</div>
-              <div class="value pnl ${pnl < 0 ? 'red' : 'green'}">${withPlus(pnl, formatProfit(sym, Math.abs(pnl)))}</div>
+              <div class="value pnl ${pnl < 0 ? 'red' : 'green'}">${formatSignedProfit(sym, pnl)}</div>
             </div>
             <div class="stat">
               <div class="label">Size (USDT)</div>
@@ -729,7 +742,7 @@
           <button class="tp-btn">Close</button>
           <button class="tp-btn">Reverse</button>
         </div>`;
-      const panelState = { node: panel, sym, leverage, mmr, entry, usedMargin, effMargin, qty, mark, side, lockLoss:false };
+      const panelState = { node: panel, sym, leverage, mmr, entry, usedMargin, effMargin, qty, mark, side, marginMode, lockLoss:false };
       panel.querySelector('.share').addEventListener('click', ()=> openPNLModal(panelState));
       return panelState;
     }
@@ -741,7 +754,7 @@
       const mBal = marginBalanceCalc(t.effMargin, pnl);
       const mRatio = marginRatioPct(maintV, mBal);
       const liq = (t.side === 'LONG') ? liqPriceLong(t.entry, t.leverage, t.mmr, t.usedMargin, t.effMargin) : liqPriceShort(t.entry, t.leverage, t.mmr, t.usedMargin, t.effMargin);
-      const pnlEl = t.node.querySelector('.value.pnl'); pnlEl.textContent = withPlus(pnl, formatProfit(t.sym, Math.abs(pnl))); pnlEl.classList.toggle('green', pnl >= 0); pnlEl.classList.toggle('red', pnl < 0);
+      const pnlEl = t.node.querySelector('.value.pnl'); pnlEl.textContent = formatSignedProfit(t.sym, pnl); pnlEl.classList.toggle('green', pnl >= 0); pnlEl.classList.toggle('red', pnl < 0);
       t.node.querySelector('.value.mark').textContent = formatPrice(t.sym, t.mark);
       const sizeEl = t.node.querySelector('.value.size'); sizeEl.textContent = formatTwoDP(t.mark * t.qty);
       const roiEl = t.node.querySelector('.value.roi'); roiEl.textContent = (roi >= 0 ? '+' : '') + toFixedSafe(roi, 2) + '%'; roiEl.classList.toggle('green', roi >= 0); roiEl.classList.toggle('red', roi < 0);
@@ -779,22 +792,47 @@
       const poolForEntry=Array.from(new Set([...primeSymbols, ...symbols.slice(0, tradeCount*2)]));
       const entryMap=await loadSixMonthEntryMap(poolForEntry);
       const MARGIN_MIN=50, MARGIN_MAX=300;
+
       const mainList=primeSymbols.filter(s=>marketMeta[s]&&isFinite(markMap[s])&&isFinite(entryMap[s]));
       const otherList=symbols.filter(s=>!primeSymbols.includes(s)&&marketMeta[s]&&isFinite(markMap[s])&&isFinite(entryMap[s]));
       const planned=[...mainList, ...otherList].slice(0, tradeCount);
+
+      const LEV_SET = [10,20,50,100];
+
       for(let i=0;i<planned.length;i++){
-        const sym=planned[i]; const liveMark=markMap[sym]; if(!isFinite(liveMark)) continue;
+        const sym=planned[i];
+        const liveMark=markMap[sym]; if(!isFinite(liveMark)) continue;
         const sixMEntryRaw=entryMap[sym]; if(!isFinite(sixMEntryRaw)) continue;
-        const leverage=[10,20,50,100][Math.floor(Math.random()*4)];
+
+        const leverage = LEV_SET[Math.floor(Math.random()*LEV_SET.length)];
+
         const entry=quantizeToTick(sixMEntryRaw, getMeta(sym).tickSize);
+
         const side=(liveMark >= entry) ? 'LONG' : 'SHORT';
+
         let usedMargin=(MARGIN_MIN + Math.random()*(MARGIN_MAX - MARGIN_MIN));
+
         const m=getMeta(sym);
         let qtyRaw=qtyFrom(usedMargin, leverage, entry);
         let qty=quantizeDownToStep(qtyRaw, m.stepSize);
         if(qty < m.minQty) qty = m.minQty;
-        let effMargin = usedMargin * (1.5 + Math.random() * 2.5);
-        const panelState = createPanel({ sym, leverage, entry, mark: liveMark, usedMargin, effMargin, mmr: getMaintRate(sym), qty, side });
+
+        // === NEW: Random margin mode (Cross or Isolated) ===
+        const marginMode = Math.random() < 0.5 ? 'Cross' : 'Isolated';
+
+        // Effective margin: Cross uses wallet buffer; Isolated uses only its own used margin
+        let effMargin;
+        if (marginMode === 'Isolated') {
+          effMargin = usedMargin; // per-position margin only
+        } else {
+          effMargin = usedMargin * (1.5 + Math.random() * 2.5); // wallet-style cushion
+        }
+
+        const panelState = createPanel({
+          sym, leverage, entry, mark: liveMark,
+          usedMargin, effMargin, mmr: getMaintRate(sym), qty, side, marginMode
+        });
+
         trades.push(panelState); feedDiv.appendChild(panelState.node);
       }
       shuffleFeed(); sizeFeed();
@@ -846,7 +884,6 @@
     window.addEventListener('resize', setBottomInset);
     document.addEventListener('DOMContentLoaded', setBottomInset);
 
-    /* PNL MODAL */
     const pnlEls = {
       backdrop: document.getElementById('pnlBackdrop'),
       title: document.getElementById('pnlTitle'),
@@ -897,16 +934,14 @@
       pnlEls.side.style.color = (t.side === 'LONG') ? '#0ecb81' : '#ff6b6b';
       pnlEls.lev.textContent = `${t.leverage}x`;
       const mode = (document.querySelector('input[name="infoMode"]:checked')||{}).value || 'PNL';
-
       let pnlText;
-      if(mode === 'PNL'){
-        pnlText = withPlus(pnl, formatProfit(t.sym, Math.abs(pnl)));
-      } else if(mode === 'ROI'){
+      if(mode === 'PNL') {
+        pnlText = formatSignedProfit(t.sym, pnl);
+      } else if(mode === 'ROI') {
         pnlText = (roi>=0?'+':'') + toFixedSafe(roi,2) + '%';
-      } else { // BOTH
-        pnlText = `${withPlus(pnl, formatProfit(t.sym, Math.abs(pnl)))}  (${(roi>=0?'+':'')+toFixedSafe(roi,2)}%)`;
+      } else {
+        pnlText = `${formatSignedProfit(t.sym, pnl)}  (${(roi>=0?'+':'')+toFixedSafe(roi,2)}%)`;
       }
-
       pnlEls.pnl.textContent = pnlText;
       pnlEls.pnl.parentElement.style.color = (pnl >= 0) ? '#0ecb81' : '#e04b4a';
       pnlEls.entry.textContent = formatPrice(t.sym, t.entry);
@@ -950,12 +985,14 @@
 
       const BAL_MIN = 350000, BAL_MAX = 500000;
       const marginBalanceTarget = Math.round(((BAL_MIN + Math.random()*(BAL_MAX - BAL_MIN)) + Number.EPSILON) * 100) / 100;
+
       walletBalance = marginBalanceTarget - unrealizedSum;
 
       realizedTodayUSD = randInt(2500, 8500);
       realizedTodayPct = walletBalance > 0 ? (realizedTodayUSD / walletBalance) * 100 : 0;
 
       refreshTop();
+
       connectFuturesMarkWS();
       setupSaveOnlyCard();
     })();
@@ -966,7 +1003,7 @@
     document.getElementById("realizedSpan").textContent = "Loading…";
   </script>
 
-  <!-- ONE-GLYPH PATCH (Binance PLEX for '1' inside pnl-card) -->
+  <!-- ========= ONE-GLYPH PATCH (force digit `1` inside pnl-card to Binance PLEX) ========= -->
   <script>
     (function(){
       const pnlCard = document.getElementById('pnlCard');
